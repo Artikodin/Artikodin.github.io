@@ -66,7 +66,7 @@ function loadComplete(bufferList) {
         sceneEl.appendChild(sphereArray[i]);
     }
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 1000; i++) {
         makeItRain(i)
     }
 
@@ -120,8 +120,8 @@ function loadComplete(bufferList) {
             if (currentPosition.y < -.5) {
                 this.reset();
             }
-            analyseur.getByteTimeDomainData(arrayDomaine)
-            console.log(arrayDomaine);
+            // analyseur.getByteTimeDomainData(arrayDomaine)
+            // console.log(arrayDomaine);
         },
         // Méthode qui repositionne la goutte aléatoirement dans le ciel
         reset: function () {
