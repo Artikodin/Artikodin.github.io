@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! - A-Frame</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+  </head>
+  <body>
+
+    <!-- La scene contient toutes les entités utilent à l'experience VR -->
+    <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+      <!-- L'entité a-sound joue le son -->
+      <!-- <a-sound src="./sound/rain.wav" autoplay="true"
+      position="-7 0 -7"></a-sound> -->
+      <!-- L'entité a-sound crée la couleur de fond -->
+      <!-- <a-sky color="#f3f3f3"></a-sky> -->
+      <a-gradient-sky material="shader: gradient; topColor: 11 19 60; bottomColor: 220 220 220;"></a-gradient-sky>
+      <a-plane  color="#cecece" rotation="-90 0 0" width="30" height="30"></a-plane>
+    </a-scene>
+
+
+  </body>
+  <script src="./src/bufferLoad.js"></script>
+  <script src="./src/index.js"></script>
+</html>
