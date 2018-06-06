@@ -64,29 +64,29 @@ function loadComplete(bufferList) {
         pausedAt = 0;
         playing = true;
     };
-    play();
-    // // On initialise le buffer
-    // bufferSource = context.createBufferSource();
-    // // On selectionne la musique à joué en fonction de celle presente dans la liste
-    // let i = 0;
-    // bufferSource.buffer = bufferList[i];
+    // play();
+    // On initialise le buffer
+    bufferSource = context.createBufferSource();
+    // On selectionne la musique à joué en fonction de celle presente dans la liste
+    let i = 0;
+    bufferSource.buffer = bufferList[i];
 
-    // // On initialise l'analyser
-    // analyseur = context.createAnalyser();
+    // On initialise l'analyser
+    analyseur = context.createAnalyser();
 
-    // // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-    // bufferSource.connect(analyseur);
-    // analyseur.connect(context.destination);
+    // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+    bufferSource.connect(analyseur);
+    analyseur.connect(context.destination);
 
-    // // Boucle le son et le met en play
-    // bufferSource.loop = true;
-    // bufferSource.start();
+    // Boucle le son et le met en play
+    bufferSource.loop = true;
+    bufferSource.start();
 
-    // // On initialise la taille du tableau
-    // arrayFreq = new Uint8Array(analyseur.fftSize);
+    // On initialise la taille du tableau
+    arrayFreq = new Uint8Array(analyseur.fftSize);
 
-    // arrayDomaine = new Uint8Array(analyseur.fftSize);
-    // // On remplit le tableau avec les frequences du son
+    arrayDomaine = new Uint8Array(analyseur.fftSize);
+    // On remplit le tableau avec les frequences du son
 
     function getArrayFreq() {
         analyseur.getByteFrequencyData(arrayFreq);
