@@ -152,7 +152,7 @@ function loadComplete(bufferList) {
         sceneEl.appendChild(sphereArray[i]);
     }
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 0; i++) {
         makeItRain(i)
     }
 
@@ -373,24 +373,24 @@ function loadComplete(bufferList) {
     });
 
 
-    // for (let i = 0; i < 5; i++) {
-    //     addEntityToScene({
-    //         'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: Box',
-    //     });
-    //     addEntityToScene({
-    //         'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: sphere; sphereRadius: 1',
-    //     });
-    //     addEntityToScene({
-    //         'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: box;',
-    //     });
-    //     addEntityToScene({
-    //         'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: Cylinder;',
-    //     });
-    // }
+    for (let i = 0; i < 5; i++) {
+        addEntityToScene({
+            'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: Box',
+        });
+        addEntityToScene({
+            'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: sphere; sphereRadius: 1',
+        });
+        addEntityToScene({
+            'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: box;',
+        });
+        addEntityToScene({
+            'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: Cylinder;',
+        });
+    }
 
 
 
