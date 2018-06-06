@@ -12,7 +12,7 @@
 <body>
 
   <!-- La scene contient toutes les entités utilent à l'experience VR -->
-  <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" physics=" driver: worker">
+  <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" physics="debug: true; driver: worker">
     <a-sky color="#f3f3f3"></a-sky>
 
     <!-- Immovable box -->
@@ -27,7 +27,7 @@
     <a-plane static-body color="#cecece" rotation="-90 0 0" width="30" height="30"></a-plane>
   </a-scene>
 
-
+  <button id="test" style="position: absolute; z-index: 10000; top: 0; left: 0;">test</button>
 </body>
 <script src="./src/bufferLoad.js"></script>
 <script src="./src/index.js"></script>

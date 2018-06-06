@@ -21,28 +21,72 @@ function init() {
 
 function loadComplete(bufferList) {
     console.log('load finish');
-    // On initialise le buffer
-    const bufferSource = context.createBufferSource();
-    // On selectionne la musique à joué en fonction de celle presente dans la liste
-    let i = 0;
-    bufferSource.buffer = bufferList[i];
+    let analyseur,
+        arrayFreq,
+        arrayDomaine,
+        bufferSource,
+        startedAt = 0,
+        pausedAt = 0,
+        playing;
+    const play = () => {
+        const offset = pausedAt;
+        console.log(offset)
+        // sourceNode = context.createBufferSource();
+        // sourceNode.connect(context.destination);
+        // sourceNode.buffer = buffer;
+        // sourceNode.start(0, offset);
 
-    // On initialise l'analyser
-    analyseur = context.createAnalyser();
 
-    // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-    bufferSource.connect(analyseur);
-    analyseur.connect(context.destination);
+        // On initialise le buffer
+        bufferSource = context.createBufferSource();
+        // On selectionne la musique à joué en fonction de celle presente dans la liste
+        let i = 0;
+        bufferSource.buffer = bufferList[i];
 
-    // Boucle le son et le met en play
-    bufferSource.loop = true;
-    bufferSource.start();
+        // On initialise l'analyser
+        analyseur = context.createAnalyser();
 
-    // On initialise la taille du tableau
-    arrayFreq = new Uint8Array(analyseur.fftSize);
+        // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+        bufferSource.connect(analyseur);
+        analyseur.connect(context.destination);
 
-    arrayDomaine = new Uint8Array(analyseur.fftSize);
-    // On remplit le tableau avec les frequences du son
+        // Boucle le son et le met en play
+        bufferSource.loop = true;
+        bufferSource.start(0, offset);
+
+        // On initialise la taille du tableau
+        arrayFreq = new Uint8Array(analyseur.fftSize);
+
+        arrayDomaine = new Uint8Array(analyseur.fftSize);
+        // On remplit le tableau avec les frequences du son
+
+        startedAt = context.currentTime - offset;
+        pausedAt = 0;
+        playing = true;
+    };
+    play();
+    // // On initialise le buffer
+    // bufferSource = context.createBufferSource();
+    // // On selectionne la musique à joué en fonction de celle presente dans la liste
+    // let i = 0;
+    // bufferSource.buffer = bufferList[i];
+
+    // // On initialise l'analyser
+    // analyseur = context.createAnalyser();
+
+    // // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+    // bufferSource.connect(analyseur);
+    // analyseur.connect(context.destination);
+
+    // // Boucle le son et le met en play
+    // bufferSource.loop = true;
+    // bufferSource.start();
+
+    // // On initialise la taille du tableau
+    // arrayFreq = new Uint8Array(analyseur.fftSize);
+
+    // arrayDomaine = new Uint8Array(analyseur.fftSize);
+    // // On remplit le tableau avec les frequences du son
 
     function getArrayFreq() {
         analyseur.getByteFrequencyData(arrayFreq);
@@ -54,6 +98,35 @@ function loadComplete(bufferList) {
     };
 
 
+
+    const pause = () => {
+        const elapsed = context.currentTime - startedAt;
+        console.log(elapsed)
+        stop();
+        pausedAt = elapsed;
+    };
+
+    const stop = () => {
+        if (bufferSource) {
+            bufferSource.disconnect();
+            bufferSource.stop(0);
+            bufferSource = null;
+        }
+        pausedAt = 0;
+        startedAt = 0;
+        playing = false;
+    };
+
+    const testEl = document.querySelector('#test');
+    testEl.addEventListener('click', () => {
+        if (playing) {
+            console.log('pause')
+            pause();
+        } else {
+            console.log('play')
+            play();
+        }
+    })
     ////////////////////////////////////////////////////////////////////////////////////
     //                  index.js													  //
     ////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +152,7 @@ function loadComplete(bufferList) {
         sceneEl.appendChild(sphereArray[i]);
     }
 
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < 1; i++) {
         makeItRain(i)
     }
 
@@ -140,6 +213,9 @@ function loadComplete(bufferList) {
             if (currentPosition.y < -.5) {
                 this.reset();
             }
+            if(playing){
+                console.log(getArrayFreq());
+            }
         },
         // Méthode qui repositionne la goutte aléatoirement dans le ciel
         reset: function () {
@@ -175,7 +251,7 @@ function loadComplete(bufferList) {
     });
 
     ////////////////////////////////////////////////////////////////////////////////////
-    //                   triangle.js													  //
+    //                   triangle.js												  //
     ////////////////////////////////////////////////////////////////////////////////////
 
     AFRAME.registerComponent('triangle', {
@@ -228,7 +304,7 @@ function loadComplete(bufferList) {
     });
 
     ////////////////////////////////////////////////////////////////////////////////////
-    //                   cylinder.js													  //
+    //                   cylinder.js												  //
     ////////////////////////////////////////////////////////////////////////////////////
 
     AFRAME.registerComponent('cylinder', {
@@ -254,6 +330,10 @@ function loadComplete(bufferList) {
         }
     });
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   smooth-appear.js											  //
+    ////////////////////////////////////////////////////////////////////////////////////
+
     AFRAME.registerComponent('smooth-appear', {
         schema: {
             scale: { type: 'number', default: 0 }
@@ -271,25 +351,46 @@ function loadComplete(bufferList) {
         },
     });
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   levitate.js				     							  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    for (let i = 0; i < 5; i++) {
-        addEntityToScene({
-            'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: Box',
-        });
-        addEntityToScene({
-            'sphere' : `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: sphere; sphereRadius: 1',
-        });
-        addEntityToScene({
-            'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: box;',
-        });
-        addEntityToScene({
-            'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: Cylinder;',
-        });
-    }
+    AFRAME.registerComponent('levitate', {
+        schema: {
+            scale: { type: 'number', default: 0 }
+        },
+
+        init: function () {
+            this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
+        },
+        tick: function () {
+            if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
+                this.el.object3D.scale.x += .1
+                this.el.object3D.scale.y += .1
+                this.el.object3D.scale.z += .1
+            }
+        },
+    });
+
+
+    // for (let i = 0; i < 5; i++) {
+    //     addEntityToScene({
+    //         'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+    //         'dynamic-body': 'shape: Box',
+    //     });
+    //     addEntityToScene({
+    //         'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+    //         'dynamic-body': 'shape: sphere; sphereRadius: 1',
+    //     });
+    //     addEntityToScene({
+    //         'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+    //         'dynamic-body': 'shape: box;',
+    //     });
+    //     addEntityToScene({
+    //         'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+    //         'dynamic-body': 'shape: Cylinder;',
+    //     });
+    // }
 
 
 
