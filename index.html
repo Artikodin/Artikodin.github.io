@@ -6,7 +6,7 @@
   <title>Hello, World! - A-Frame</title>
   <meta name="description" content="Hello, World! - A-Frame">
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <!-- <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script> -->
 </head>
 
 <body>
@@ -14,20 +14,11 @@
   <!-- La scene contient toutes les entités utilent à l'experience VR -->
   <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" physics="debug: true; driver: worker">
     <a-sky color="#f3f3f3"></a-sky>
-
-    <!-- Immovable box -->
-    <!-- <a-box static-body position="-1, 3, -2" width="3" height="1" depth="1"></a-box> -->
-
-    <!-- Dynamic box -->
-    <!-- <a-box dynamic-body="shape: sphere" position="1, 3, -2" width="1" height="1" depth="1"></a-box> -->
-    
-    <!-- <a-entity dynamic-body="shape: cylinder; cylinderAxis: y; mass: 5" position="1, 3, -2" width="1" height="1" depth="1"></a-entity> -->
-
-
+    <!-- here is the scene -->
     <a-plane static-body color="#cecece" rotation="-90 0 0" width="30" height="30"></a-plane>
   </a-scene>
 
-  <button id="test" style="position: absolute; z-index: 10000; top: 0; left: 0;">test</button>
+  <!-- <button id="test" style="position: absolute; z-index: 10000; top: 0; left: 0;">test</button> -->
 </body>
 <script src="./src/bufferLoad.js"></script>
 <script src="./src/index.js"></script>
