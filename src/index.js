@@ -28,42 +28,53 @@ function loadComplete(bufferList) {
         startedAt = 0,
         pausedAt = 0,
         playing;
-    const play = () => {
-        const offset = pausedAt;
-        console.log(offset)
-        // sourceNode = context.createBufferSource();
-        // sourceNode.connect(context.destination);
-        // sourceNode.buffer = buffer;
-        // sourceNode.start(0, offset);
+    // const play = () => {
+    //     const offset = pausedAt;
+    //     // On initialise le buffer
+    //     bufferSource = context.createBufferSource();
+    //     // On selectionne la musique à joué en fonction de celle presente dans la liste
+    //     let i = 0;
+    //     bufferSource.buffer = bufferList[i];
 
+    //     // On initialise l'analyser
+    //     analyseur = context.createAnalyser();
 
-        // On initialise le buffer
-        bufferSource = context.createBufferSource();
-        // On selectionne la musique à joué en fonction de celle presente dans la liste
-        let i = 0;
-        bufferSource.buffer = bufferList[i];
+    //     // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+    //     bufferSource.connect(analyseur);
+    //     analyseur.connect(context.destination);
 
-        // On initialise l'analyser
-        analyseur = context.createAnalyser();
+    //     // Boucle le son et le met en play
+    //     bufferSource.loop = true;
+    //     bufferSource.start(0, offset);
 
-        // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-        bufferSource.connect(analyseur);
-        analyseur.connect(context.destination);
+    //     // On initialise la taille du tableau
+    //     arrayFreq = new Uint8Array(analyseur.fftSize);
 
-        // Boucle le son et le met en play
-        bufferSource.loop = true;
-        bufferSource.start(0, offset);
+    //     arrayDomaine = new Uint8Array(analyseur.fftSize);
+    //     // On remplit le tableau avec les frequences du son
 
-        // On initialise la taille du tableau
-        arrayFreq = new Uint8Array(analyseur.fftSize);
+    //     startedAt = context.currentTime - offset;
+    //     pausedAt = 0;
+    //     playing = true;
+    // };
 
-        arrayDomaine = new Uint8Array(analyseur.fftSize);
-        // On remplit le tableau avec les frequences du son
+    // const pause = () => {
+    //     const elapsed = context.currentTime - startedAt;
+    //     console.log(elapsed)
+    //     stop();
+    //     pausedAt = elapsed;
+    // };
 
-        startedAt = context.currentTime - offset;
-        pausedAt = 0;
-        playing = true;
-    };
+    // const stop = () => {
+    //     if (bufferSource) {
+    //         bufferSource.disconnect();
+    //         bufferSource.stop(0);
+    //         bufferSource = null;
+    //     }
+    //     pausedAt = 0;
+    //     startedAt = 0;
+    //     playing = false;
+    // };
     // play();
     // On initialise le buffer
     bufferSource = context.createBufferSource();
@@ -99,23 +110,7 @@ function loadComplete(bufferList) {
 
 
 
-    const pause = () => {
-        const elapsed = context.currentTime - startedAt;
-        console.log(elapsed)
-        stop();
-        pausedAt = elapsed;
-    };
-
-    const stop = () => {
-        if (bufferSource) {
-            bufferSource.disconnect();
-            bufferSource.stop(0);
-            bufferSource = null;
-        }
-        pausedAt = 0;
-        startedAt = 0;
-        playing = false;
-    };
+    
 
     const testEl = document.querySelector('#test');
     testEl.addEventListener('click', () => {
