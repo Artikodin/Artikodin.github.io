@@ -74,7 +74,7 @@ function loadComplete(bufferList) {
         startedAt = 0;
         playing = false;
     };
-    // play();
+    play();
     // On initialise le buffer
     // bufferSource = context.createBufferSource();
     // // On selectionne la musique à joué en fonction de celle presente dans la liste
@@ -146,7 +146,7 @@ function loadComplete(bufferList) {
         sceneEl.appendChild(sphereArray[i]);
     }
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 0; i++) {
         makeItRain(i)
     }
 
@@ -218,173 +218,173 @@ function loadComplete(bufferList) {
     });
 
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   square.js													  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   square.js													  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('square', {
-    //     schema: {
-    //         width: { type: 'number', default: 1 },
-    //         height: { type: 'number', default: 1 },
-    //         depth: { type: 'number', default: 1 },
-    //         color: { type: 'color', default: '#FF0000' },
-    //         posX: { type: 'number', default: 0 },
-    //         posY: { type: 'number', default: 3 },
-    //         posZ: { type: 'number', default: -2 },
-    //     },
+    AFRAME.registerComponent('square', {
+        schema: {
+            width: { type: 'number', default: 1 },
+            height: { type: 'number', default: 1 },
+            depth: { type: 'number', default: 1 },
+            color: { type: 'color', default: '#FF0000' },
+            posX: { type: 'number', default: 0 },
+            posY: { type: 'number', default: 3 },
+            posZ: { type: 'number', default: -2 },
+        },
 
-    //     init: function () {
-    //         var data = this.data;
-    //         var el = this.el;
-    //         this.geometry = new THREE.BoxBufferGeometry(data.width, data.height, data.height);
-    //         this.material = new THREE.MeshStandardMaterial({ color: data.color });
-    //         this.mesh = new THREE.Mesh(this.geometry, this.material);
-    //         el.setObject3D('mesh', this.mesh);
-    //         el.object3D.position.set(data.posX, data.posY, data.posZ);
-    //     }
-    // });
+        init: function () {
+            var data = this.data;
+            var el = this.el;
+            this.geometry = new THREE.BoxBufferGeometry(data.width, data.height, data.height);
+            this.material = new THREE.MeshStandardMaterial({ color: data.color });
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
+            el.setObject3D('mesh', this.mesh);
+            el.object3D.position.set(data.posX, data.posY, data.posZ);
+        }
+    });
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   triangle.js												  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   triangle.js												  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('triangle', {
-    //     schema: {
-    //         radius: { type: 'number', default: 1 },
-    //         height: { type: 'number', default: 1 },
-    //         radialSegments: { type: 'number', default: 3 },
-    //         color: { type: 'color', default: '#FFE500' },
-    //         posX: { type: 'number', default: 0 },
-    //         posY: { type: 'number', default: 3 },
-    //         posZ: { type: 'number', default: -2 },
-    //     },
+    AFRAME.registerComponent('triangle', {
+        schema: {
+            radius: { type: 'number', default: 1 },
+            height: { type: 'number', default: 1 },
+            radialSegments: { type: 'number', default: 3 },
+            color: { type: 'color', default: '#FFE500' },
+            posX: { type: 'number', default: 0 },
+            posY: { type: 'number', default: 3 },
+            posZ: { type: 'number', default: -2 },
+        },
 
-    //     init: function () {
-    //         var data = this.data;
-    //         var el = this.el;
-    //         this.geometry = new THREE.ConeGeometry(data.radius, data.height, data.radialSegments);
-    //         this.material = new THREE.MeshStandardMaterial({ color: data.color });
-    //         this.mesh = new THREE.Mesh(this.geometry, this.material);
-    //         el.setObject3D('mesh', this.mesh);
-    //         el.object3D.position.set(0, 3, -2);
-    //         el.object3D.position.set(data.posX, data.posY, data.posZ);
-    //     }
-    // });
+        init: function () {
+            var data = this.data;
+            var el = this.el;
+            this.geometry = new THREE.ConeGeometry(data.radius, data.height, data.radialSegments);
+            this.material = new THREE.MeshStandardMaterial({ color: data.color });
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
+            el.setObject3D('mesh', this.mesh);
+            el.object3D.position.set(0, 3, -2);
+            el.object3D.position.set(data.posX, data.posY, data.posZ);
+        }
+    });
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   sphere.js													  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   sphere.js													  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('sphere', {
-    //     schema: {
-    //         radius: { type: 'number', default: 1 },
-    //         widthSegments: { type: 'number', default: 32 },
-    //         heightSegments: { type: 'number', default: 32 },
-    //         color: { type: 'color', default: '#000080' },
-    //         posX: { type: 'number', default: 0 },
-    //         posY: { type: 'number', default: 3 },
-    //         posZ: { type: 'number', default: -2 },
-    //     },
+    AFRAME.registerComponent('sphere', {
+        schema: {
+            radius: { type: 'number', default: 1 },
+            widthSegments: { type: 'number', default: 32 },
+            heightSegments: { type: 'number', default: 32 },
+            color: { type: 'color', default: '#000080' },
+            posX: { type: 'number', default: 0 },
+            posY: { type: 'number', default: 3 },
+            posZ: { type: 'number', default: -2 },
+        },
 
-    //     init: function () {
-    //         var data = this.data;
-    //         var el = this.el;
-    //         this.geometry = new THREE.SphereGeometry(data.radius, data.widthSegments, data.heightSegments);
-    //         this.material = new THREE.MeshStandardMaterial({ color: data.color });
-    //         this.mesh = new THREE.Mesh(this.geometry, this.material);
-    //         el.setObject3D('mesh', this.mesh);
-    //         el.object3D.position.set(data.posX, data.posY, data.posZ);
-    //     }
-    // });
+        init: function () {
+            var data = this.data;
+            var el = this.el;
+            this.geometry = new THREE.SphereGeometry(data.radius, data.widthSegments, data.heightSegments);
+            this.material = new THREE.MeshStandardMaterial({ color: data.color });
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
+            el.setObject3D('mesh', this.mesh);
+            el.object3D.position.set(data.posX, data.posY, data.posZ);
+        }
+    });
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   cylinder.js												  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   cylinder.js												  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('cylinder', {
-    //     schema: {
-    //         radiusTop: { type: 'number', default: .5 },
-    //         radiusBottom: { type: 'number', default: .5 },
-    //         height: { type: 'number', default: 1 },
-    //         radialSegments: { type: 'number', default: 32 },
-    //         color: { type: 'color', default: '#008000' },
-    //         posX: { type: 'number', default: 0 },
-    //         posY: { type: 'number', default: 3 },
-    //         posZ: { type: 'number', default: -2 },
-    //     },
+    AFRAME.registerComponent('cylinder', {
+        schema: {
+            radiusTop: { type: 'number', default: .5 },
+            radiusBottom: { type: 'number', default: .5 },
+            height: { type: 'number', default: 1 },
+            radialSegments: { type: 'number', default: 32 },
+            color: { type: 'color', default: '#008000' },
+            posX: { type: 'number', default: 0 },
+            posY: { type: 'number', default: 3 },
+            posZ: { type: 'number', default: -2 },
+        },
 
-    //     init: function () {
-    //         var data = this.data;
-    //         var el = this.el;
-    //         this.geometry = new THREE.CylinderBufferGeometry(data.radiusTop, data.radiusBottom, data.height, data.radialSegments);
-    //         this.material = new THREE.MeshStandardMaterial({ color: data.color });
-    //         this.mesh = new THREE.Mesh(this.geometry, this.material);
-    //         el.setObject3D('mesh', this.mesh);
-    //         el.object3D.position.set(data.posX, data.posY, data.posZ);
-    //     }
-    // });
+        init: function () {
+            var data = this.data;
+            var el = this.el;
+            this.geometry = new THREE.CylinderBufferGeometry(data.radiusTop, data.radiusBottom, data.height, data.radialSegments);
+            this.material = new THREE.MeshStandardMaterial({ color: data.color });
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
+            el.setObject3D('mesh', this.mesh);
+            el.object3D.position.set(data.posX, data.posY, data.posZ);
+        }
+    });
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   smooth-appear.js											  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   smooth-appear.js											  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('smooth-appear', {
-    //     schema: {
-    //         scale: { type: 'number', default: 0 }
-    //     },
+    AFRAME.registerComponent('smooth-appear', {
+        schema: {
+            scale: { type: 'number', default: 0 }
+        },
 
-    //     init: function () {
-    //         this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
-    //     },
-    //     tick: function () {
-    //         if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
-    //             this.el.object3D.scale.x += .1
-    //             this.el.object3D.scale.y += .1
-    //             this.el.object3D.scale.z += .1
-    //         }
-    //     },
-    // });
+        init: function () {
+            this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
+        },
+        tick: function () {
+            if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
+                this.el.object3D.scale.x += .1
+                this.el.object3D.scale.y += .1
+                this.el.object3D.scale.z += .1
+            }
+        },
+    });
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //                   levitate.js				     							  //
-    // ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   levitate.js				     							  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    // AFRAME.registerComponent('levitate', {
-    //     schema: {
-    //         scale: { type: 'number', default: 0 }
-    //     },
+    AFRAME.registerComponent('levitate', {
+        schema: {
+            scale: { type: 'number', default: 0 }
+        },
 
-    //     init: function () {
-    //         this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
-    //     },
-    //     tick: function () {
-    //         if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
-    //             this.el.object3D.scale.x += .1
-    //             this.el.object3D.scale.y += .1
-    //             this.el.object3D.scale.z += .1
-    //         }
-    //     },
-    // });
+        init: function () {
+            this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
+        },
+        tick: function () {
+            if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
+                this.el.object3D.scale.x += .1
+                this.el.object3D.scale.y += .1
+                this.el.object3D.scale.z += .1
+            }
+        },
+    });
 
 
-    // for (let i = 0; i < 5; i++) {
-    //     addEntityToScene({
-    //         'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: Box',
-    //     });
-    //     addEntityToScene({
-    //         'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: sphere; sphereRadius: 1',
-    //     });
-    //     addEntityToScene({
-    //         'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: box;',
-    //     });
-    //     addEntityToScene({
-    //         'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-    //         'dynamic-body': 'shape: Cylinder;',
-    //     });
-    // }
+    for (let i = 0; i < 5; i++) {
+        addEntityToScene({
+            'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: Box',
+        });
+        addEntityToScene({
+            'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: sphere; sphereRadius: 1',
+        });
+        addEntityToScene({
+            'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: box;',
+        });
+        addEntityToScene({
+            'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
+            'dynamic-body': 'shape: Cylinder;',
+        });
+    }
 
 
 
