@@ -27,76 +27,76 @@ function loadComplete(bufferList) {
         startedAt = 0,
         pausedAt = 0,
         playing;
-    // const play = () => {
-    //     const offset = pausedAt;
-    //     // On initialise le buffer
-    //     bufferSource = context.createBufferSource();
-    //     // On selectionne la musique à joué en fonction de celle presente dans la liste
-    //     let i = 0;
-    //     bufferSource.buffer = bufferList[i];
+    const play = () => {
+        const offset = pausedAt;
+        // On initialise le buffer
+        bufferSource = context.createBufferSource();
+        // On selectionne la musique à joué en fonction de celle presente dans la liste
+        let i = 0;
+        bufferSource.buffer = bufferList[i];
 
-    //     // On initialise l'analyser
-    //     analyseur = context.createAnalyser();
+        // On initialise l'analyser
+        analyseur = context.createAnalyser();
 
-    //     // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-    //     bufferSource.connect(analyseur);
-    //     analyseur.connect(context.destination);
+        // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+        bufferSource.connect(analyseur);
+        analyseur.connect(context.destination);
 
-    //     // Boucle le son et le met en play
-    //     bufferSource.loop = true;
-    //     bufferSource.start(0, offset);
+        // Boucle le son et le met en play
+        bufferSource.loop = true;
+        bufferSource.start(0, offset);
 
-    //     // On initialise la taille du tableau
-    //     arrayFreq = new Uint8Array(analyseur.fftSize);
+        // On initialise la taille du tableau
+        arrayFreq = new Uint8Array(analyseur.fftSize);
 
-    //     arrayDomaine = new Uint8Array(analyseur.fftSize);
-    //     // On remplit le tableau avec les frequences du son
+        arrayDomaine = new Uint8Array(analyseur.fftSize);
+        // On remplit le tableau avec les frequences du son
 
-    //     startedAt = context.currentTime - offset;
-    //     pausedAt = 0;
-    //     playing = true;
-    // };
+        startedAt = context.currentTime - offset;
+        pausedAt = 0;
+        playing = true;
+    };
 
-    // const pause = () => {
-    //     const elapsed = context.currentTime - startedAt;
-    //     console.log(elapsed)
-    //     stop();
-    //     pausedAt = elapsed;
-    // };
+    const pause = () => {
+        const elapsed = context.currentTime - startedAt;
+        console.log(elapsed)
+        stop();
+        pausedAt = elapsed;
+    };
 
-    // const stop = () => {
-    //     if (bufferSource) {
-    //         bufferSource.disconnect();
-    //         bufferSource.stop(0);
-    //         bufferSource = null;
-    //     }
-    //     pausedAt = 0;
-    //     startedAt = 0;
-    //     playing = false;
-    // };
+    const stop = () => {
+        if (bufferSource) {
+            bufferSource.disconnect();
+            bufferSource.stop(0);
+            bufferSource = null;
+        }
+        pausedAt = 0;
+        startedAt = 0;
+        playing = false;
+    };
     // play();
     // On initialise le buffer
-    bufferSource = context.createBufferSource();
-    // On selectionne la musique à joué en fonction de celle presente dans la liste
-    let i = 0;
-    bufferSource.buffer = bufferList[i];
+    // bufferSource = context.createBufferSource();
+    // // On selectionne la musique à joué en fonction de celle presente dans la liste
+    // let i = 0;
+    // bufferSource.buffer = bufferList[i];
 
-    // On initialise l'analyser
-    analyseur = context.createAnalyser();
+    // // On initialise l'analyser
+    // analyseur = context.createAnalyser();
 
-    // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-    bufferSource.connect(analyseur);
-    analyseur.connect(context.destination);
+    // // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
+    // bufferSource.connect(analyseur);
+    // analyseur.connect(context.destination);
 
-    // Boucle le son et le met en play
-    bufferSource.loop = true;
-    bufferSource.start();
+    // // Boucle le son et le met en play
+    // bufferSource.loop = true;
+    // bufferSource.start();
 
-    // On initialise la taille du tableau
-    arrayFreq = new Uint8Array(analyseur.fftSize);
+    // // On initialise la taille du tableau
+    // arrayFreq = new Uint8Array(analyseur.fftSize);
 
-    arrayDomaine = new Uint8Array(analyseur.fftSize);
-    // On remplit le tableau avec les frequences du son
+    // arrayDomaine = new Uint8Array(analyseur.fftSize);
+    // // On remplit le tableau avec les frequences du son
 
     function getArrayFreq() {
         analyseur.getByteFrequencyData(arrayFreq);
@@ -111,16 +111,16 @@ function loadComplete(bufferList) {
 
     
 
-    // const testEl = document.querySelector('#test');
-    // testEl.addEventListener('click', () => {
-    //     if (playing) {
-    //         console.log('pause')
-    //         pause();
-    //     } else {
-    //         console.log('play')
-    //         play();
-    //     }
-    // })
+    const testEl = document.querySelector('#test');
+    testEl.addEventListener('click', () => {
+        if (playing) {
+            console.log('pause')
+            pause();
+        } else {
+            console.log('play')
+            play();
+        }
+    })
     ////////////////////////////////////////////////////////////////////////////////////
     //                  index.js													  //
     ////////////////////////////////////////////////////////////////////////////////////
