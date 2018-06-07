@@ -26,7 +26,7 @@ function loadComplete(bufferList) {
         bufferSource,
         startedAt = 0,
         pausedAt = 0,
-        playing;
+        playing = false;
     const play = () => {
         const offset = pausedAt;
         // On initialise le buffer
@@ -75,28 +75,7 @@ function loadComplete(bufferList) {
         playing = false;
     };
     play();
-    // On initialise le buffer
-    // bufferSource = context.createBufferSource();
-    // // On selectionne la musique à joué en fonction de celle presente dans la liste
-    // let i = 0;
-    // bufferSource.buffer = bufferList[i];
-
-    // // On initialise l'analyser
-    // analyseur = context.createAnalyser();
-
-    // // On connect le buffer à l'analyser et l'analyser au context de destination(enceintes)
-    // bufferSource.connect(analyseur);
-    // analyseur.connect(context.destination);
-
-    // // Boucle le son et le met en play
-    // bufferSource.loop = true;
-    // bufferSource.start();
-
-    // // On initialise la taille du tableau
-    // arrayFreq = new Uint8Array(analyseur.fftSize);
-
-    // arrayDomaine = new Uint8Array(analyseur.fftSize);
-    // // On remplit le tableau avec les frequences du son
+    pause();
 
     function getArrayFreq() {
         analyseur.getByteFrequencyData(arrayFreq);
@@ -151,18 +130,16 @@ function loadComplete(bufferList) {
 
     const testEl = document.querySelector('#test');
     testEl.addEventListener('click', () => {
-        // el.body.applyForce(
-        //     /* impulse */        new CANNON.Vec3(0, 50, 0),
-        //     /* world position */ new CANNON.Vec3(0, 1, -2)
-        // );
+        el.body.applyImpulse(
+            /* impulse */        new CANNON.Vec3(0, 5, 1),
+            /* world position */ new CANNON.Vec3(0, 0, 0)
+        );
         // el.body.velocity.set(0, 100, 0);
         // el.body.angularVelocity.set(0, 100, 0);
         // el.body.quaternion.set(0, 100, 0);
         // el.body.position.set(0, 100, 0);
         // el.object3D.position.set(0, 100, 0);
         // sceneEl.setAttribute('physics', 'gravity: 0.1');
-        console.log(el.sceneEl.object3D.world)
-        console.log(window.CANNON.World)
         // console.log(sceneEl.body)
         // console.log(sceneEl.world)
         // if (playing) {
@@ -183,6 +160,14 @@ function loadComplete(bufferList) {
         let randomValue = Math.random() * j + i;
         randomValue = randomValue.toFixed(2);
         randomValue = parseFloat(randomValue);
+        return randomValue;
+    }
+  
+    const randomValueBetweenPosNegNofloor = (i, j) => {
+        let randomValue = Math.random() * j + i;
+        randomValue = randomValue.toFixed(2);
+        randomValue = parseFloat(randomValue);
+        randomValue *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
         return randomValue;
     }
 
@@ -265,16 +250,7 @@ function loadComplete(bufferList) {
             this.mesh = new THREE.Mesh(this.geometry, this.material);
             el.setObject3D('mesh', this.mesh);
             el.object3D.position.set(data.posX, data.posY, data.posZ);
-        },
-        tick: function () {
-            if (once) {
-                console.log(this.el.body)
-                this.el.body.velocity.y = 10;
-                console.log(this.el.body)
-                once = false;
-            }
-            // this.el.body.position.y += 10
-        },
+        }
     });
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -379,20 +355,21 @@ function loadComplete(bufferList) {
     });
 
     ////////////////////////////////////////////////////////////////////////////////////
-    //                   levitate.js				     							  //
+    //                   dance.js				     							  //
     ////////////////////////////////////////////////////////////////////////////////////
 
-    AFRAME.registerComponent('levitate', {
+    AFRAME.registerComponent('dance', {
         schema: {
             scale: { type: 'number', default: 0 }
         },
-
-        init: function () {
-
-        },
         tick: function () {
-            this.el.object3D.position.y += 10
             if (playing) {
+                if (this.el.body.position.y < .6) {
+                    this.el.body.applyImpulse(
+                        new CANNON.Vec3(randomValueBetweenPosNegNofloor(0, .5), randomValueBetween(1, 1.2), randomValueBetweenPosNegNofloor(0, .5)),
+                        new CANNON.Vec3(0, 0, 0)
+                    );
+                }
             }
         },
     });
@@ -441,7 +418,7 @@ function loadComplete(bufferList) {
 
     addCustomTagToScene('a-cylinder', {
         "position": "-1, 0, -1",
-        "color": "green",
+        "color": "#073a00",
         "segments-radial": "3",
         "scale": ".6 .8 .6",
         "rotation": "0 -30 0",
@@ -451,39 +428,33 @@ function loadComplete(bufferList) {
 
     addCustomTagToScene('a-box', {
         "position": "1, 0, -1",
-        "color": "#4c0000",
+        "color": "red",
         "scale": ".8 .8 .8",
         "id": "pause",
         "fusing-event": ""
     });
 
 
-    // for (let i = 0; i < 5; i++) {
-    //     addEntityToScene({
-    //         'square': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
-    //         'dynamic-body': 'shape: Box',
-    //     });
-    //     addEntityToScene({
-    //         'sphere': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
-    //         'dynamic-body': 'shape: sphere; sphereRadius: 1',
-    //     });
-    //     addEntityToScene({
-    //         'triangle': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
-    //         'dynamic-body': 'shape: box;',
-    //     });
-    //     addEntityToScene({
-    //         'cylinder': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
-    //         'dynamic-body': 'shape: Cylinder;',
-    //     });
-    // }
-
-    // addEntityToScene({
-    //     'square': ``,
-    //     'dynamic-body': 'shape: Box',
-    //     'levitate':''
-    // });
-
-
-
-
+    for (let i = 0; i < 30; i++) {
+        addEntityToScene({
+            'square': `posX: ${randomValueBetweenPosNeg(3, 10)}; posZ: ${randomValueBetweenPosNeg(3, 10)};`,
+            'dynamic-body': 'shape: Box; mass: 1',
+            'dance':''
+        });
+        // addEntityToScene({
+        //     'sphere': `posX: ${randomValueBetweenPosNeg(3, 10)}; posZ: ${randomValueBetweenPosNeg(3, 10)};`,
+        //     'dynamic-body': 'shape: sphere; sphereRadius: 1; mass: 1',
+        //     'dance':''
+        // });
+        addEntityToScene({
+            'triangle': `posX: ${randomValueBetweenPosNeg(3, 10)}; posZ: ${randomValueBetweenPosNeg(3, 10)};`,
+            'dynamic-body': 'shape: box; mass: 1',
+            'dance':''
+        });
+        addEntityToScene({
+            'cylinder': `posX: ${randomValueBetweenPosNeg(3, 10)}; posZ: ${randomValueBetweenPosNeg(3, 10)};`,
+            'dynamic-body': 'shape: Cylinder; mass: 1',
+            'dance':''
+        });
+    }
 }

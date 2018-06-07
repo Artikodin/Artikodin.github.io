@@ -12,11 +12,11 @@
 <body>
 
   <!-- La scene contient toutes les entités utilent à l'experience VR -->
-  <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" physics="debug: true; driver: worker; iterations: 20; ">
+  <a-scene id="main-scene" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" physics="driver: worker; iterations: 20; ">
     <a-sky color="#f3f3f3"></a-sky>
     <!-- here is the scene -->
-    <a-box id="nyan" dynamic-body="mass: 1;" position="0, 1, -2" width="1" height="1" depth="1"></a-box>
-    
+    <!-- <a-box id="nyan" dynamic-body="mass: 1;" position="0, 1, -2" width="1" height="1" depth="1" logme=""></a-box> -->
+
 
     <a-camera>
       <a-cursor></a-cursor>
