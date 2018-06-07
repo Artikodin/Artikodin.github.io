@@ -414,24 +414,24 @@ function loadComplete(bufferList) {
             var el = this.el;
 
             el.addEventListener('fusing', function () {
-                if (el.getAttribute('id') === 'play' && playing) {
-                    el.setAttribute('color', data.playEnabled);
+                if (el.getAttribute('id') === 'play' && !playing) {
+                    document.querySelector('#play').setAttribute('color', data.playEnabled);
                     document.querySelector('#pause').setAttribute('color', data.pauseDisabled);
                     play();
                 } else {
-                    el.setAttribute('color', data.pauseEnabled);
+                    document.querySelector('#pause').setAttribute('color', data.pauseEnabled);
                     document.querySelector('#play').setAttribute('color', data.playDisabled);
                     pause();
                 }
             });
 
             el.addEventListener('click', function () {
-                if (el.getAttribute('id') === 'play' && playing) {
-                    el.setAttribute('color', data.playEnabled);
+                if (el.getAttribute('id') === 'play' && !playing) {
+                    document.querySelector('#play').setAttribute('color', data.playEnabled);
                     document.querySelector('#pause').setAttribute('color', data.pauseDisabled);
                     play();
                 } else {
-                    el.setAttribute('color', data.pauseEnabled);
+                    document.querySelector('#pause').setAttribute('color', data.pauseEnabled);
                     document.querySelector('#play').setAttribute('color', data.playDisabled);
                     pause();
                 }
