@@ -403,15 +403,38 @@ function loadComplete(bufferList) {
 
     AFRAME.registerComponent('fusing-event', {
         schema: {
-            color: { default: 'blue' }
+            playEnabled: { type: 'color', default: 'green' },
+            playDisabled: { type: 'color', default: '#073a00' },
+            pauseEnabled: { type: 'color', default: 'red' },
+            pauseDisabled: { type: 'color', default: '#4c0000' }
         },
 
         init: function () {
             var data = this.data;
-            var el = this.el; 
+            var el = this.el;
 
             el.addEventListener('fusing', function () {
-                el.setAttribute('color', data.color);
+                if (el.getAttribute('id') === 'play' && playing) {
+                    el.setAttribute('color', data.playEnabled);
+                    document.querySelector('#pause').setAttribute('color', data.pauseDisabled);
+                    play();
+                } else {
+                    el.setAttribute('color', data.pauseEnabled);
+                    document.querySelector('#play').setAttribute('color', data.playDisabled);
+                    pause();
+                }
+            });
+
+            el.addEventListener('click', function () {
+                if (el.getAttribute('id') === 'play' && playing) {
+                    el.setAttribute('color', data.playEnabled);
+                    document.querySelector('#pause').setAttribute('color', data.pauseDisabled);
+                    play();
+                } else {
+                    el.setAttribute('color', data.pauseEnabled);
+                    document.querySelector('#play').setAttribute('color', data.playDisabled);
+                    pause();
+                }
             });
         }
     });
@@ -422,14 +445,16 @@ function loadComplete(bufferList) {
         "segments-radial": "3",
         "scale": ".6 .8 .6",
         "rotation": "0 -30 0",
-        "fusing-event":""
+        "id": "play",
+        "fusing-event": ""
     });
-    
+
     addCustomTagToScene('a-box', {
         "position": "1, 0, -1",
-        "color": "red",
+        "color": "#4c0000",
         "scale": ".8 .8 .8",
-        "fusing-event":""
+        "id": "pause",
+        "fusing-event": ""
     });
 
 
