@@ -108,19 +108,6 @@ function loadComplete(bufferList) {
     };
 
 
-
-    
-
-    const testEl = document.querySelector('#test');
-    testEl.addEventListener('click', () => {
-        if (playing) {
-            console.log('pause')
-            pause();
-        } else {
-            console.log('play')
-            play();
-        }
-    })
     ////////////////////////////////////////////////////////////////////////////////////
     //                  index.js													  //
     ////////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +118,14 @@ function loadComplete(bufferList) {
 
     const addEntityToScene = (components) => {
         const element = document.createElement('a-entity')
+        for (var key in components) {
+            element.setAttribute(key, components[key]);
+        }
+        sceneEl.appendChild(element)
+    }
+
+    const addCustomTagToScene = (tag, components) => {
+        const element = document.createElement(tag)
         for (var key in components) {
             element.setAttribute(key, components[key]);
         }
@@ -150,6 +145,34 @@ function loadComplete(bufferList) {
         makeItRain(i)
     }
 
+
+    var el = document.querySelector('#nyan');
+
+
+    const testEl = document.querySelector('#test');
+    testEl.addEventListener('click', () => {
+        // el.body.applyForce(
+        //     /* impulse */        new CANNON.Vec3(0, 50, 0),
+        //     /* world position */ new CANNON.Vec3(0, 1, -2)
+        // );
+        // el.body.velocity.set(0, 100, 0);
+        // el.body.angularVelocity.set(0, 100, 0);
+        // el.body.quaternion.set(0, 100, 0);
+        // el.body.position.set(0, 100, 0);
+        // el.object3D.position.set(0, 100, 0);
+        // sceneEl.setAttribute('physics', 'gravity: 0.1');
+        console.log(el.sceneEl.object3D.world)
+        console.log(window.CANNON.World)
+        // console.log(sceneEl.body)
+        // console.log(sceneEl.world)
+        // if (playing) {
+        //     console.log('pause')
+        //     pause();
+        // } else {
+        //     console.log('play')
+        //     play();
+        // }
+    })
 
     ////////////////////////////////////////////////////////////////////////////////////
     //                  utils.js													  //
@@ -207,7 +230,7 @@ function loadComplete(bufferList) {
             if (currentPosition.y < -.5) {
                 this.reset();
             }
-            if(playing){
+            if (playing) {
                 console.log(getArrayFreq());
             }
         },
@@ -222,6 +245,7 @@ function loadComplete(bufferList) {
     //                   square.js													  //
     ////////////////////////////////////////////////////////////////////////////////////
 
+    let once = true;
     AFRAME.registerComponent('square', {
         schema: {
             width: { type: 'number', default: 1 },
@@ -241,7 +265,16 @@ function loadComplete(bufferList) {
             this.mesh = new THREE.Mesh(this.geometry, this.material);
             el.setObject3D('mesh', this.mesh);
             el.object3D.position.set(data.posX, data.posY, data.posZ);
-        }
+        },
+        tick: function () {
+            if (once) {
+                console.log(this.el.body)
+                this.el.body.velocity.y = 10;
+                console.log(this.el.body)
+                once = false;
+            }
+            // this.el.body.position.y += 10
+        },
     });
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -355,36 +388,75 @@ function loadComplete(bufferList) {
         },
 
         init: function () {
-            this.el.object3D.scale.set(this.data.scale, this.data.scale, this.data.scale)
+
         },
         tick: function () {
-            if (this.el.object3D.scale.x < 1 || this.el.object3D.scale.y < 1 || this.el.object3D.scale.z < 1) {
-                this.el.object3D.scale.x += .1
-                this.el.object3D.scale.y += .1
-                this.el.object3D.scale.z += .1
+            this.el.object3D.position.y += 10
+            if (playing) {
             }
         },
     });
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                   events.js				     							  //
+    ////////////////////////////////////////////////////////////////////////////////////
 
-    for (let i = 0; i < 5; i++) {
-        addEntityToScene({
-            'square': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: Box',
-        });
-        addEntityToScene({
-            'sphere': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: sphere; sphereRadius: 1',
-        });
-        addEntityToScene({
-            'triangle': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: box;',
-        });
-        addEntityToScene({
-            'cylinder': `posX: ${randomValueBetweenPosNeg(0, 15)}; posZ: ${randomValueBetweenPosNeg(0, 15)};`,
-            'dynamic-body': 'shape: Cylinder;',
-        });
-    }
+    AFRAME.registerComponent('fusing-event', {
+        schema: {
+            color: { default: 'blue' }
+        },
+
+        init: function () {
+            var data = this.data;
+            var el = this.el; 
+
+            el.addEventListener('fusing', function () {
+                el.setAttribute('color', data.color);
+            });
+        }
+    });
+
+    addCustomTagToScene('a-cylinder', {
+        "position": "-1, 0, -1",
+        "color": "green",
+        "segments-radial": "3",
+        "scale": ".6 .8 .6",
+        "rotation": "0 -30 0",
+        "fusing-event":""
+    });
+    
+    addCustomTagToScene('a-box', {
+        "position": "1, 0, -1",
+        "color": "red",
+        "scale": ".8 .8 .8",
+        "fusing-event":""
+    });
+
+
+    // for (let i = 0; i < 5; i++) {
+    //     addEntityToScene({
+    //         'square': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
+    //         'dynamic-body': 'shape: Box',
+    //     });
+    //     addEntityToScene({
+    //         'sphere': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
+    //         'dynamic-body': 'shape: sphere; sphereRadius: 1',
+    //     });
+    //     addEntityToScene({
+    //         'triangle': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
+    //         'dynamic-body': 'shape: box;',
+    //     });
+    //     addEntityToScene({
+    //         'cylinder': `posX: ${randomValueBetweenPosNeg(3, 15)}; posZ: ${randomValueBetweenPosNeg(3, 15)};`,
+    //         'dynamic-body': 'shape: Cylinder;',
+    //     });
+    // }
+
+    // addEntityToScene({
+    //     'square': ``,
+    //     'dynamic-body': 'shape: Box',
+    //     'levitate':''
+    // });
 
 
 
