@@ -9,7 +9,7 @@ function init() {
     bufferLoader = new BufferLoader(
         context,
         [
-            'assets/ClemBeatz_Lucioles.mp3',
+            '../assets/NOMINAL_EAT.mp3',
             // 'sound/migos.mp3',	
             // 'sound/starbound.mp3',		
         ],
@@ -346,7 +346,7 @@ function loadComplete(bufferList) {
             if (playing) {
                 if (this.el.body.position.y < .6) {
                     this.el.body.applyImpulse(
-                        new CANNON.Vec3(randomValueBetweenPosNegNofloor(0, .5), randomValueBetween(1, 1.2), randomValueBetweenPosNegNofloor(0, .5)),
+                        new CANNON.Vec3(randomValueBetweenPosNegNofloor(0, .5), randomValueBetweenPosNegNofloor(.5, 1.2), randomValueBetweenPosNegNofloor(0, .5)),
                         new CANNON.Vec3(0, 0, 0)
                     );
                 }
