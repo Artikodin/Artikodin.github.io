@@ -125,31 +125,11 @@ function loadComplete(bufferList) {
     }
 
 
-    var el = document.querySelector('#nyan');
+    // var el = document.querySelector('#nyan');
 
 
-    const testEl = document.querySelector('#test');
-    testEl.addEventListener('click', () => {
-        el.body.applyImpulse(
-            /* impulse */        new CANNON.Vec3(0, 5, 1),
-            /* world position */ new CANNON.Vec3(0, 0, 0)
-        );
-        // el.body.velocity.set(0, 100, 0);
-        // el.body.angularVelocity.set(0, 100, 0);
-        // el.body.quaternion.set(0, 100, 0);
-        // el.body.position.set(0, 100, 0);
-        // el.object3D.position.set(0, 100, 0);
-        // sceneEl.setAttribute('physics', 'gravity: 0.1');
-        // console.log(sceneEl.body)
-        // console.log(sceneEl.world)
-        // if (playing) {
-        //     console.log('pause')
-        //     pause();
-        // } else {
-        //     console.log('play')
-        //     play();
-        // }
-    })
+    // const testEl = document.querySelector('#test');
+    // testEl.addEventListener('click', () => {})
 
     ////////////////////////////////////////////////////////////////////////////////////
     //                  utils.js													  //
